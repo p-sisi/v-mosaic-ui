@@ -1,0 +1,54 @@
+{
+  "name": "@sisipang/mosaic-ui",
+  "version": "0.0.1",
+  "description": "A Vue 3 component library",
+  "type": "module",
+  "license": "MIT",
+  "author": "sisipang",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sisipang/v-mosaic-ui.git"
+  },
+  "main": "./dist/mosaic-ui.umd.cjs",
+  "module": "./dist/mosaic-ui.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/mosaic-ui.js",
+      "require": "./dist/mosaic-ui.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "keywords": [
+    "vue",
+    "vue3",
+    "component-library",
+    "ui"
+  ],
+  "scripts": {
+    "dev": "vite --config vite.config.doc.ts",
+    "build": "vite build && vue-tsc --emitDeclarationOnly",
+    "build:doc": "vite build --config vite.config.doc.ts",
+    "lint": "eslint . --ext .vue,.ts",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.2.3",
+    "highlight.js": "^11.11.1",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.5",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vue-tsc": "^2.2.8"
+  }
+}
