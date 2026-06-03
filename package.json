@@ -1,5 +1,5 @@
 {
-  "name": "@sisipang/mosaic-ui",
+  "name": "mosaic-ui",
   "version": "0.0.1",
   "description": "A Vue 3 component library",
   "type": "module",

@@ -18,7 +18,7 @@ A Vue 3 component library built with Composition API & TypeScript.
 ## Install / 安装
 
 ```bash
-npm install @sisipang/mosaic-ui
+npm install mosaic-ui
 ```
 
 ## Quick Start / 快速上手
@@ -27,8 +27,8 @@ Global registration / 全局注册：
 
 ```ts
 import { createApp } from 'vue'
-import MosaicUI from '@sisipang/mosaic-ui'
-import '@sisipang/mosaic-ui/style.css'
+import MosaicUI from 'mosaic-ui'
+import 'mosaic-ui/style.css'
 
 const app = createApp(App)
 app.use(MosaicUI)
@@ -37,8 +37,8 @@ app.use(MosaicUI)
 Import on demand / 按需引入：
 
 ```ts
-import { MButton, MInput } from '@sisipang/mosaic-ui'
-import '@sisipang/mosaic-ui/style.css'
+import { MButton, MInput } from 'mosaic-ui'
+import 'mosaic-ui/style.css'
 ```
 
 ---

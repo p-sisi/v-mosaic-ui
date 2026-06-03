@@ -32,14 +32,14 @@
     <div class="doc-home__section">
       <h2>安装</h2>
       <div class="doc-home__code">
-        <pre>npm install @sisipang/mosaic-ui</pre>
+        <pre>npm install mosaic-ui</pre>
       </div>
 
       <h2>全局注册</h2>
       <div class="doc-home__code">
         <pre>import { createApp } from 'vue'
-import MosaicUI from '@sisipang/mosaic-ui'
-import '@sisipang/mosaic-ui/style.css'
+import MosaicUI from 'mosaic-ui'
+import 'mosaic-ui/style.css'
 
 const app = createApp(App)
 app.use(MosaicUI)</pre>
@@ -47,8 +47,8 @@ app.use(MosaicUI)</pre>
 
       <h2>按需引入</h2>
       <div class="doc-home__code">
-        <pre>import { MButton, MInput } from '@sisipang/mosaic-ui'
-import '@sisipang/mosaic-ui/style.css'</pre>
+        <pre>import { MButton, MInput } from 'mosaic-ui'
+import 'mosaic-ui/style.css'</pre>
       </div>
     </div>
   </div>
