@@ -1,6 +1,6 @@
 import { createApp } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import MosaicUI from 'mosaic-ui'
+import MosaicUI from '@pang/mosaic-ui'
 import App from './App.vue'
 import Home from './pages/home.vue'
 import ButtonDoc from './pages/normal/button.vue'

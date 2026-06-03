@@ -9,7 +9,7 @@
           <router-link to="/normal/button" style="color: #fff; text-decoration: none;">开始使用</router-link>
         </MButton>
         <MButton size="large" round>
-          <a href="https://github.com/sisipang/v-mosaic-ui" target="_blank" style="text-decoration: none;">GitHub</a>
+          <a href="https://github.com/sisipang/v-@pang/mosaic-ui" target="_blank" style="text-decoration: none;">GitHub</a>
         </MButton>
       </div>
     </div>
@@ -32,14 +32,14 @@
     <div class="doc-home__section">
       <h2>安装</h2>
       <div class="doc-home__code">
-        <pre>npm install mosaic-ui</pre>
+        <pre>npm install @pang/mosaic-ui</pre>
       </div>
 
       <h2>全局注册</h2>
       <div class="doc-home__code">
         <pre>import { createApp } from 'vue'
-import MosaicUI from 'mosaic-ui'
-import 'mosaic-ui/style.css'
+import MosaicUI from '@pang/mosaic-ui'
+import '@pang/mosaic-ui/style.css'
 
 const app = createApp(App)
 app.use(MosaicUI)</pre>
@@ -47,8 +47,8 @@ app.use(MosaicUI)</pre>
 
       <h2>按需引入</h2>
       <div class="doc-home__code">
-        <pre>import { MButton, MInput } from 'mosaic-ui'
-import 'mosaic-ui/style.css'</pre>
+        <pre>import { MButton, MInput } from '@pang/mosaic-ui'
+import '@pang/mosaic-ui/style.css'</pre>
       </div>
     </div>
   </div>

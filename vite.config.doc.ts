@@ -7,7 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, 'src'),
-      'mosaic-ui': resolve(__dirname, 'src/index.ts'),
+      '@pang/mosaic-ui': resolve(__dirname, 'src/index.ts'),
     },
   },
   root: 'doc',
