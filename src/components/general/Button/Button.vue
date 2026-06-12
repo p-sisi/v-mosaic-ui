@@ -55,8 +55,8 @@ const classes = computed(() => [
   'm-button',
   `m-button--${props.type}`,
   {
-    'm-button--size-small': props.size === 'small',
-    'm-button--size-large': props.size === 'large',
+    'm-button--small': props.size === 'small',
+    'm-button--large': props.size === 'large',
     'm-button--round': props.round,
     'm-button--circle': props.circle,
     'm-button--disabled': props.disabled,
@@ -290,13 +290,13 @@ function handleClick(event: MouseEvent) {
   color: rgba(144, 147, 153, 0.7);
 }
 
-.m-button--size-small {
+.m-button--small {
   height: 24px;
   padding: 4px 12px;
   font-size: var(--mosaic-font-size-sm);
 }
 
-.m-button--size-large {
+.m-button--large {
   height: 40px;
   padding: 12px 20px;
   font-size: var(--mosaic-font-size-lg);

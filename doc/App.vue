@@ -30,14 +30,29 @@
           <template v-for="group in navGroups" :key="group.label">
             <div class="doc-nav-group">
               <div class="doc-nav-group__label">{{ group.label }}</div>
-              <router-link
-                v-for="item in group.children"
-                :key="item.path"
-                :to="item.path"
-                :class="['doc-nav-item', { 'doc-nav-item--active': currentPath === item.path }]"
-              >
-                {{ item.label }}
-              </router-link>
+              <template v-for="child in group.children" :key="child.label">
+                <template v-if="child.children">
+                  <div class="doc-nav-sub-group">
+                    <div class="doc-nav-sub-group__label">{{ child.label }}</div>
+                    <router-link
+                      v-for="item in child.children"
+                      :key="item.path"
+                      :to="item.path"
+                      :class="['doc-nav-item', { 'doc-nav-item--active': currentPath === item.path }]"
+                    >
+                      {{ item.label }}
+                    </router-link>
+                  </div>
+                </template>
+                <template v-else>
+                  <router-link
+                    :to="child.path"
+                    :class="['doc-nav-item', { 'doc-nav-item--active': currentPath === child.path }]"
+                  >
+                    {{ child.label }}
+                  </router-link>
+                </template>
+              </template>
             </div>
           </template>
         </nav>
@@ -60,7 +75,11 @@ import AnchorNav from './components/AnchorNav.vue'
 const route = useRoute()
 const siderCollapsed = ref(false)
 
-const navGroups = [
+type NavItem = { label: string; path: string; children?: undefined }
+type NavSubGroup = { label: string; children: NavItem[]; path?: undefined }
+type NavChild = NavItem | NavSubGroup
+
+const navGroups: { label: string; children: NavChild[] }[] = [
   {
     label: '开发指南',
     children: [
@@ -70,8 +89,13 @@ const navGroups = [
   {
     label: '通用',
     children: [
-      { label: 'Button 按钮', path: '/normal/button' },
-      { label: 'Input 输入框', path: '/normal/input' },
+      { label: 'Button 按钮', path: '/general/button' },
+    ],
+  },
+  {
+    label: '表单',
+    children: [
+      { label: 'Input 输入框', path: '/form/input' },
     ],
   },
   {
@@ -91,7 +115,7 @@ function toggleSider() {
 
 <style>
 @import '../src/styles/base.css';
-@import './styles/doc-page.css';
+@import './styles/doc-page.scss';
 
 * {
   margin: 0;
@@ -243,6 +267,17 @@ function toggleSider() {
   color: var(--mosaic-primary);
   background: rgba(167, 139, 250, 0.1);
   font-weight: 500;
+}
+
+.doc-nav-sub-group {
+  margin-bottom: 8px;
+}
+
+.doc-nav-sub-group__label {
+  font-size: 13px;
+  color: var(--mosaic-text-primary);
+  font-weight: 500;
+  padding: 6px 12px;
 }
 
 .doc-content-wrapper {

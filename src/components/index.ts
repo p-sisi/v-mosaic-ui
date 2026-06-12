@@ -1,2 +1,2 @@
-export { MButton, MInput } from './normal'
-// export components from './message' when added
+export { MButton } from './general'
+export { MInput } from './form'

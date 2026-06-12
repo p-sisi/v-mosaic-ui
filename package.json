@@ -9,6 +9,10 @@
     "type": "git",
     "url": "https://github.com/sisipang/v-mosaic-ui.git"
   },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "main": "./dist/mosaic-ui.umd.cjs",
   "module": "./dist/mosaic-ui.js",
   "types": "./dist/index.d.ts",
@@ -45,6 +49,7 @@
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
     "highlight.js": "^11.11.1",
+    "sass-embedded": "^1.100.0",
     "typescript": "^5.8.3",
     "vite": "^6.3.5",
     "vue": "^3.5.13",

@@ -35,16 +35,14 @@
 <!-- 自定义宽度 -->
 <MInput placeholder="宽度 100%" width="100%" />
 <MInput placeholder="宽度 200px" width="200px" />'>
-          <div class="demo-size-group">
-            <div class="demo-size-row">
+          <div class="doc-demo-group">
               <MInput placeholder="Small" size="small" />
               <MInput placeholder="Default" />
               <MInput placeholder="Large" size="large" />
-            </div>
-            <div class="demo-size-row">
+          </div>
+          <div class="doc-demo-group">
               <MInput placeholder="宽度 100%" width="100%" />
               <MInput placeholder="宽度 200px" width="200px" />
-            </div>
           </div>
         </DemoBlock>
       </div>
@@ -54,6 +52,58 @@
         <p class="doc-page__hint">设置 <code>disabled</code> 属性禁用输入框。</p>
         <DemoBlock code='<MInput placeholder="禁用状态" disabled />'>
           <MInput placeholder="禁用状态" disabled />
+        </DemoBlock>
+      </div>
+
+      <div class="doc-section" id="textarea">
+        <h2>文本域</h2>
+        <p class="doc-page__hint">设置 <code>type="textarea"</code> 即可切换为文本域输入框，通过 <code>rows</code> 设置默认行数。</p>
+        <DemoBlock code='<MInput v-model="textareaValue" type="textarea" placeholder="请输入内容" :rows="4" />'>
+          <MInput v-model="textareaValue" type="textarea" placeholder="请输入内容" :rows="4" />
+        </DemoBlock>
+      </div>
+
+      <div class="doc-section" id="textarea-autosize">
+        <h2>自适应高度</h2>
+        <p class="doc-page__hint">设置 <code>autosize</code> 可使文本域根据内容自动调整高度。通过 <code>autosize="{ minRows, maxRows }"</code> 或单独的 <code>min-rows</code> / <code>max-rows</code> 属性限制行数范围。</p>
+        <DemoBlock :code="textareaAutosizeCode">
+          <div class="doc-demo-group">
+            <MInput v-model="autosizeValue" type="textarea" placeholder="自适应高度" autosize />
+            <MInput v-model="autosizeMinMaxValue" type="textarea" placeholder="最小2行，最大4行" :autosize="{ minRows: 2, maxRows: 4 }" />
+            <MInput v-model="minMaxRowsValue" type="textarea" placeholder="minRows 3 / maxRows 5" :min-rows="3" :max-rows="5" />
+          </div>
+        </DemoBlock>
+      </div>
+
+      <div class="doc-section" id="word-count">
+        <h2>字数限制与统计</h2>
+        <p class="doc-page__hint"><code>max</code> / <code>min</code> 设置最大/最小字数限制。<code>show-word-limit</code> 和 <code>show-word</code> 在输入框内部末尾分别显示剩余字数和已输入字符数；<code>show-word-limit-outside</code> 和 <code>show-word-outside</code> 则显示在输入框外部下方。超出 max 或不足 min 时字数自动变红。</p>
+        <DemoBlock :code="wordCountCode">
+          <div class="doc-demo-group">
+            <MInput v-model="maxMinValue" placeholder="min 5 / max 20" :min="5" :max="20" show-word-limit />
+            <MInput v-model="maxMinWordValue" placeholder="min 5 / max 20" :min="5" :max="20" show-word />
+          </div>
+          <div class="doc-demo-group">
+            <MInput v-model="maxMinOutsideLimitValue" placeholder="min 5 / max 20" :min="5" :max="20" show-word-limit-outside />
+            <MInput v-model="maxMinOutsideWordValue" placeholder="min 5 / max 20" :min="5" :max="20" show-word-outside />
+          </div>
+        </DemoBlock>
+      </div>
+
+      <div class="doc-section" id="prepend-append">
+        <h2>前置与后置内容</h2>
+        <p class="doc-page__hint">通过 <code>#prepend</code> 插槽在输入框前面添加内容，<code>#append</code> 插槽在输入框后面添加内容。</p>
+        <DemoBlock :code="prependAppendCode">
+          <MInput v-model="prependValue" placeholder="请输入内容">
+            <template #prepend>Http://</template>
+          </MInput>
+          <MInput v-model="appendValue" placeholder="请输入内容">
+            <template #append>.com</template>
+          </MInput>
+          <MInput v-model="bothValue" placeholder="请输入内容">
+            <template #prepend>Http://</template>
+            <template #append>.com</template>
+          </MInput>
         </DemoBlock>
       </div>
 
@@ -84,13 +134,23 @@
       </thead>
       <tbody>
         <tr><td>modelValue</td><td>string | number</td><td>''</td><td>绑定值（v-model）</td></tr>
-        <tr><td>type</td><td>'text' | 'password' | 'number' | 'email' | 'tel' | 'url'</td><td>'text'</td><td>输入框类型</td></tr>
+        <tr><td>type</td><td>'text' | 'password' | 'number' | 'email' | 'tel' | 'url' | 'textarea'</td><td>'text'</td><td>输入框类型，textarea 为文本域</td></tr>
         <tr><td>size</td><td>'small' | 'default' | 'large'</td><td>'default'</td><td>输入框预设尺寸</td></tr>
         <tr><td>width</td><td>string</td><td>—</td><td>自定义宽度，如 "100%"、"200px"</td></tr>
         <tr><td>placeholder</td><td>string</td><td>''</td><td>占位文本</td></tr>
         <tr><td>disabled</td><td>boolean</td><td>false</td><td>是否禁用</td></tr>
         <tr><td>clearable</td><td>boolean</td><td>false</td><td>是否可清除</td></tr>
-        <tr><td>maxlength</td><td>number</td><td>—</td><td>最大输入长度</td></tr>
+        <tr><td>maxlength</td><td>number</td><td>—</td><td>最大输入长度（原生属性，兼容保留）</td></tr>
+        <tr><td>max</td><td>number</td><td>—</td><td>最大字数限制</td></tr>
+        <tr><td>min</td><td>number</td><td>—</td><td>最小字数限制</td></tr>
+        <tr><td>rows</td><td>number</td><td>2</td><td>textarea 默认行数（仅文本域生效）</td></tr>
+        <tr><td>autosize</td><td>boolean | { minRows?: number, maxRows?: number }</td><td>false</td><td>自适应高度，为 true 时高度随内容自动调整；为对象时可指定 minRows/maxRows</td></tr>
+        <tr><td>minRows</td><td>number</td><td>—</td><td>textarea 最小行数（仅文本域生效）</td></tr>
+        <tr><td>maxRows</td><td>number</td><td>—</td><td>textarea 最大行数（仅文本域生效）</td></tr>
+        <tr><td>show-word-limit</td><td>boolean</td><td>false</td><td>在输入框内部末尾显示剩余字数，如 "3 / 20"</td></tr>
+        <tr><td>show-word</td><td>boolean</td><td>false</td><td>在输入框内部末尾显示已输入字符数</td></tr>
+        <tr><td>show-word-limit-outside</td><td>boolean</td><td>false</td><td>将剩余字数显示在输入框外部末尾下方</td></tr>
+        <tr><td>show-word-outside</td><td>boolean</td><td>false</td><td>将已输入字符数显示在输入框外部末尾下方</td></tr>
       </tbody>
     </table>
 
@@ -115,7 +175,8 @@
         <tr><th>插槽</th><th>说明</th></tr>
       </thead>
       <tbody>
-        <tr><td>—</td><td>MInput 暂无自定义插槽</td></tr>
+        <tr><td>prepend</td><td>输入框前置内容</td></tr>
+        <tr><td>append</td><td>输入框后置内容</td></tr>
       </tbody>
     </table>
   </div>
@@ -126,18 +187,19 @@ import { ref } from 'vue'
 import DemoBlock from '../../components/DemoBlock.vue'
 import AnchorNav from '../../components/AnchorNav.vue'
 
-// 基础用法示例
 const inputValue = ref('')
-
-// 可清除示例
+const textareaValue = ref('')
+const autosizeValue = ref('')
+const autosizeMinMaxValue = ref('')
+const minMaxRowsValue = ref('')
 const clearableValue = ref('可清除的内容')
 const clearMsg = ref('')  // 清除事件的提示信息
+
 function handleClear() {
   clearMsg.value = 'clear 事件已触发'
   setTimeout(() => { clearMsg.value = '' }, 1500)
 }
 
-// 聚焦/失焦示例
 const focusMsg = ref('等待操作...')
 function handleFocus() {
   focusMsg.value = '输入框已聚焦'
@@ -146,14 +208,55 @@ function handleBlur() {
   focusMsg.value = '输入框已失焦'
 }
 
-// input/change 事件示例
 const eventValue = ref('')
 const inputCount = ref(0)   // input 事件触发计数
 const changeCount = ref(0)  // change 事件触发计数
 function handleInput() { inputCount.value++ }
 function handleChange() { changeCount.value++ }
 
-// 事件示例的代码文本（含 <script> 标签，需通过变量绑定避免模板解析冲突）
+const maxMinValue = ref('')
+const maxMinWordValue = ref('')
+const maxMinOutsideLimitValue = ref('')
+const maxMinOutsideWordValue = ref('')
+
+const prependValue = ref('')
+const appendValue = ref('')
+const bothValue = ref('')
+
+const prependAppendCode = `<MInput v-model="val1" placeholder="请输入内容">
+  <template #prepend>Http://</template>
+</MInput>
+
+<MInput v-model="val2" placeholder="请输入内容">
+  <template #append>.com</template>
+</MInput>
+
+<MInput v-model="val3" placeholder="请输入内容">
+  <template #prepend>Http://</template>
+  <template #append>.com</template>
+</MInput>`
+
+const textareaAutosizeCode = `<!-- 自适应高度，无行数限制 -->
+<MInput v-model="val" type="textarea" placeholder="自适应高度" autosize />
+
+<!-- 自适应高度，限制行数范围 -->
+<MInput v-model="val" type="textarea" placeholder="最小2行，最大4行"
+  :autosize="{ minRows: 2, maxRows: 4 }" />
+
+<!-- 通过 minRows / maxRows 单独限制 -->
+<MInput v-model="val" type="textarea" placeholder="minRows 3 / maxRows 5"
+  :min-rows="3" :max-rows="5" />`
+
+const wordCountCode = `<div style="display: flex; gap: 12px;">
+  <MInput v-model="val1" placeholder="min 5 / max 20" :min="5" :max="20" show-word-limit />
+  <MInput v-model="val2" placeholder="min 5 / max 20" :min="5" :max="20" show-word />
+</div>
+
+<div style="display: flex; gap: 12px;">
+  <MInput v-model="val3" placeholder="min 5 / max 20" :min="5" :max="20" show-word-limit-outside />
+  <MInput v-model="val4" placeholder="min 5 / max 20" :min="5" :max="20" show-word-outside />
+</div>`
+
 const focusBlurCode = `<MInput placeholder="试试聚焦和失焦"
   @focus="handleFocus"
   @blur="handleBlur" />
@@ -188,13 +291,17 @@ const anchors = [
   { id: 'clearable', label: '可清除' },
   { id: 'size', label: '尺寸' },
   { id: 'disabled', label: '禁用状态' },
+  { id: 'textarea', label: '文本域' },
+  { id: 'textarea-autosize', label: '自适应高度' },
+  { id: 'word-count', label: '字数限制与统计' },
+  { id: 'prepend-append', label: '前置与后置内容' },
   { id: 'event-focus-blur', label: '聚焦与失焦' },
   { id: 'event-input-change', label: '输入与变更' },
   { id: 'api', label: 'API' },
 ]
 </script>
 
-<style>
+<style scoped lang="scss">
 .demo-block__preview .m-input {
   max-width: 240px;
 }
@@ -202,18 +309,5 @@ const anchors = [
 .demo-event-result {
   color: var(--mosaic-text-secondary);
   font-size: 14px;
-}
-
-.demo-size-group {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.demo-size-row {
-  display: flex;
-  gap: 12px;
-  align-items: center;
-  flex-wrap: wrap;
 }
 </style>
