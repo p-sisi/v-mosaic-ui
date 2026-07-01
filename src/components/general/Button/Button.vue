@@ -8,7 +8,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
+import { buttonGroupKey } from '../ButtonGroup/constants'
 
 defineOptions({ name: 'MButton' })
 
@@ -32,7 +33,7 @@ const props = withDefaults(defineProps<{
   dash?: boolean          // 是否为虚线按钮（边框变为虚线）
 }>(), {
   type: 'default',
-  size: 'default',
+  size: undefined,
   width: '',
   height: '',
   round: false,
@@ -47,6 +48,10 @@ const props = withDefaults(defineProps<{
   dash: false,
 })
 
+const buttonGroup = inject(buttonGroupKey, undefined)
+
+const mergedSize = computed(() => props.size ?? buttonGroup?.size ?? 'default')
+
 const emit = defineEmits<{
   click: [event: MouseEvent]
 }>()
@@ -55,8 +60,8 @@ const classes = computed(() => [
   'm-button',
   `m-button--${props.type}`,
   {
-    'm-button--small': props.size === 'small',
-    'm-button--large': props.size === 'large',
+    'm-button--small': mergedSize.value === 'small',
+    'm-button--large': mergedSize.value === 'large',
     'm-button--round': props.round,
     'm-button--circle': props.circle,
     'm-button--disabled': props.disabled,
@@ -84,7 +89,7 @@ function handleClick(event: MouseEvent) {
 }
 </script>
 
-<style>
+<style lang="scss">
 .m-button {
   display: inline-flex;
   align-items: center;
@@ -101,367 +106,412 @@ function handleClick(event: MouseEvent) {
   transition: all 0.2s;
   outline: none;
   user-select: none;
-}
 
-.m-button--default:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-primary);
-  border-color: var(--mosaic-primary);
-  background-color: rgba(167, 139, 250, 0.08);
-}
+  &--default:not(.m-button--disabled):not(.m-button--loading):hover {
+    color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
+    background-color: rgba(167, 139, 250, 0.08);
+  }
 
-.m-button--primary {
-  color: #fff;
-  background-color: var(--mosaic-primary);
-  border-color: var(--mosaic-primary);
-}
-.m-button--primary:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: #fff;
-  background-color: rgba(167, 139, 250, 0.85);
-  border-color: rgba(167, 139, 250, 0.85);
-}
+  &--primary {
+    color: #fff;
+    background-color: var(--mosaic-primary);
+    border-color: var(--mosaic-primary);
 
-.m-button--success {
-  color: #fff;
-  background-color: var(--mosaic-success);
-  border-color: var(--mosaic-success);
-}
-.m-button--success:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: #fff;
-  background-color: rgba(103, 194, 58, 0.85);
-  border-color: rgba(103, 194, 58, 0.85);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: #fff;
+      background-color: rgba(167, 139, 250, 0.85);
+      border-color: rgba(167, 139, 250, 0.85);
+    }
+  }
 
-.m-button--warning {
-  color: #fff;
-  background-color: var(--mosaic-warning);
-  border-color: var(--mosaic-warning);
-}
-.m-button--warning:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: #fff;
-  background-color: rgba(230, 162, 60, 0.85);
-  border-color: rgba(230, 162, 60, 0.85);
-}
+  &--success {
+    color: #fff;
+    background-color: var(--mosaic-success);
+    border-color: var(--mosaic-success);
 
-.m-button--danger {
-  color: #fff;
-  background-color: var(--mosaic-danger);
-  border-color: var(--mosaic-danger);
-}
-.m-button--danger:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: #fff;
-  background-color: rgba(245, 108, 108, 0.85);
-  border-color: rgba(245, 108, 108, 0.85);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: #fff;
+      background-color: rgba(103, 194, 58, 0.85);
+      border-color: rgba(103, 194, 58, 0.85);
+    }
+  }
 
-.m-button--info {
-  color: #fff;
-  background-color: var(--mosaic-info);
-  border-color: var(--mosaic-info);
-}
-.m-button--info:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: #fff;
-  background-color: rgba(144, 147, 153, 0.85);
-  border-color: rgba(144, 147, 153, 0.85);
-}
+  &--warning {
+    color: #fff;
+    background-color: var(--mosaic-warning);
+    border-color: var(--mosaic-warning);
 
-.m-button--default.m-button--plain {
-  color: var(--mosaic-text-regular);
-  background-color: #f5f5f5;
-  border-color: var(--mosaic-border-color);
-}
-.m-button--default.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-text-regular);
-  background-color: rgba(144, 147, 153, 0.1);
-  border-color: rgba(144, 147, 153, 0.5);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: #fff;
+      background-color: rgba(230, 162, 60, 0.85);
+      border-color: rgba(230, 162, 60, 0.85);
+    }
+  }
 
-.m-button--primary.m-button--plain {
-  color: var(--mosaic-primary);
-  background-color: rgba(167, 139, 250, 0.1);
-  border-color: rgba(167, 139, 250, 0.5);
-}
-.m-button--primary.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-primary);
-  background-color: rgba(167, 139, 250, 0.2);
-  border-color: var(--mosaic-primary);
-}
+  &--danger {
+    color: #fff;
+    background-color: var(--mosaic-danger);
+    border-color: var(--mosaic-danger);
 
-.m-button--success.m-button--plain {
-  color: var(--mosaic-success);
-  background-color: rgba(103, 194, 58, 0.1);
-  border-color: rgba(103, 194, 58, 0.5);
-}
-.m-button--success.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-success);
-  background-color: rgba(103, 194, 58, 0.2);
-  border-color: var(--mosaic-success);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: #fff;
+      background-color: rgba(245, 108, 108, 0.85);
+      border-color: rgba(245, 108, 108, 0.85);
+    }
+  }
 
-.m-button--warning.m-button--plain {
-  color: var(--mosaic-warning);
-  background-color: rgba(230, 162, 60, 0.1);
-  border-color: rgba(230, 162, 60, 0.5);
-}
-.m-button--warning.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-warning);
-  background-color: rgba(230, 162, 60, 0.2);
-  border-color: var(--mosaic-warning);
-}
+  &--info {
+    color: #fff;
+    background-color: var(--mosaic-info);
+    border-color: var(--mosaic-info);
 
-.m-button--danger.m-button--plain {
-  color: var(--mosaic-danger);
-  background-color: rgba(245, 108, 108, 0.1);
-  border-color: rgba(245, 108, 108, 0.5);
-}
-.m-button--danger.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-danger);
-  background-color: rgba(245, 108, 108, 0.2);
-  border-color: var(--mosaic-danger);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: #fff;
+      background-color: rgba(144, 147, 153, 0.85);
+      border-color: rgba(144, 147, 153, 0.85);
+    }
+  }
 
-.m-button--info.m-button--plain {
-  color: var(--mosaic-info);
-  background-color: rgba(144, 147, 153, 0.1);
-  border-color: rgba(144, 147, 153, 0.5);
-}
-.m-button--info.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-info);
-  background-color: rgba(144, 147, 153, 0.2);
-  border-color: var(--mosaic-info);
-}
+  &--default.m-button--plain {
+    color: var(--mosaic-text-regular);
+    background-color: #f5f5f5;
+    border-color: var(--mosaic-border-color);
 
-.m-button--no-border.m-button--plain {
-  border-color: transparent;
-}
-.m-button--no-border.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  border-color: transparent;
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-text-regular);
+      background-color: rgba(144, 147, 153, 0.1);
+      border-color: rgba(144, 147, 153, 0.5);
+    }
+  }
 
-/* 通用 noBorder（不依赖 plain） */
-.m-button.m-button--no-border {
-  border-color: transparent;
-}
-.m-button.m-button--no-border:not(.m-button--disabled):not(.m-button--loading):hover {
-  border-color: transparent;
-}
+  &--primary.m-button--plain {
+    color: var(--mosaic-primary);
+    background-color: rgba(167, 139, 250, 0.1);
+    border-color: rgba(167, 139, 250, 0.5);
 
-.m-button--text {
-  border-color: transparent;
-  background-color: transparent;
-}
-.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  border-color: transparent;
-  background-color: transparent;
-}
-.m-button--default.m-button--text {
-  color: var(--mosaic-text-regular);
-}
-.m-button--default.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-primary);
-}
-.m-button--primary.m-button--text {
-  color: var(--mosaic-primary);
-}
-.m-button--primary.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: rgba(167, 139, 250, 0.7);
-}
-.m-button--success.m-button--text {
-  color: var(--mosaic-success);
-}
-.m-button--success.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: rgba(103, 194, 58, 0.7);
-}
-.m-button--warning.m-button--text {
-  color: var(--mosaic-warning);
-}
-.m-button--warning.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: rgba(230, 162, 60, 0.7);
-}
-.m-button--danger.m-button--text {
-  color: var(--mosaic-danger);
-}
-.m-button--danger.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: rgba(245, 108, 108, 0.7);
-}
-.m-button--info.m-button--text {
-  color: var(--mosaic-info);
-}
-.m-button--info.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: rgba(144, 147, 153, 0.7);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-primary);
+      background-color: rgba(167, 139, 250, 0.2);
+      border-color: var(--mosaic-primary);
+    }
+  }
 
-.m-button--small {
-  height: 24px;
-  padding: 4px 12px;
-  font-size: var(--mosaic-font-size-sm);
-}
+  &--success.m-button--plain {
+    color: var(--mosaic-success);
+    background-color: rgba(103, 194, 58, 0.1);
+    border-color: rgba(103, 194, 58, 0.5);
 
-.m-button--large {
-  height: 40px;
-  padding: 12px 20px;
-  font-size: var(--mosaic-font-size-lg);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-success);
+      background-color: rgba(103, 194, 58, 0.2);
+      border-color: var(--mosaic-success);
+    }
+  }
 
-.m-button--round {
-  border-radius: 20px;
-}
+  &--warning.m-button--plain {
+    color: var(--mosaic-warning);
+    background-color: rgba(230, 162, 60, 0.1);
+    border-color: rgba(230, 162, 60, 0.5);
 
-.m-button--circle {
-  border-radius: 50%;
-  padding: 0;
-  aspect-ratio: 1;
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-warning);
+      background-color: rgba(230, 162, 60, 0.2);
+      border-color: var(--mosaic-warning);
+    }
+  }
 
-.m-button--disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
+  &--danger.m-button--plain {
+    color: var(--mosaic-danger);
+    background-color: rgba(245, 108, 108, 0.1);
+    border-color: rgba(245, 108, 108, 0.5);
 
-.m-button--loading {
-  cursor: default;
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-danger);
+      background-color: rgba(245, 108, 108, 0.2);
+      border-color: var(--mosaic-danger);
+    }
+  }
 
-/* === 自定义颜色 (color prop) === */
+  &--info.m-button--plain {
+    color: var(--mosaic-info);
+    background-color: rgba(144, 147, 153, 0.1);
+    border-color: rgba(144, 147, 153, 0.5);
 
-/* 实心按钮（非 default 类型） */
-.m-button--custom-color:not(.m-button--default):not(.m-button--plain):not(.m-button--text) {
-  background-color: var(--m-button-color);
-  border-color: var(--m-button-color);
-  color: #fff;
-}
-.m-button--custom-color:not(.m-button--default):not(.m-button--plain):not(.m-button--text):not(.m-button--disabled):not(.m-button--loading):hover {
-  background-color: var(--m-button-color);
-  border-color: var(--m-button-color);
-  color: #fff;
-  filter: brightness(1.1);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-info);
+      background-color: rgba(144, 147, 153, 0.2);
+      border-color: var(--mosaic-info);
+    }
+  }
 
-/* default 类型自定义颜色 */
-.m-button--default.m-button--custom-color:not(.m-button--plain):not(.m-button--text) {
-  background-color: #fff;
-  border-color: var(--m-button-color);
-  color: var(--m-button-color);
-}
-.m-button--default.m-button--custom-color:not(.m-button--plain):not(.m-button--text):not(.m-button--disabled):not(.m-button--loading):hover {
-  background-color: color-mix(in srgb, var(--m-button-color) 8%, white);
-  border-color: var(--m-button-color);
-  color: var(--m-button-color);
-}
+  &--no-border.m-button--plain {
+    border-color: transparent;
 
-/* 朴素按钮自定义颜色 */
-.m-button--custom-color.m-button--plain {
-  background-color: color-mix(in srgb, var(--m-button-color) 10%, white);
-  border-color: color-mix(in srgb, var(--m-button-color) 50%, white);
-  color: var(--m-button-color);
-}
-.m-button--custom-color.m-button--plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  background-color: color-mix(in srgb, var(--m-button-color) 20%, white);
-  border-color: var(--m-button-color);
-  color: var(--m-button-color);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      border-color: transparent;
+    }
+  }
 
-/* 无边框朴素自定义颜色 */
-.m-button--custom-color.m-button--plain.m-button--no-border {
-  border-color: transparent;
-}
-.m-button--custom-color.m-button--plain.m-button--no-border:not(.m-button--disabled):not(.m-button--loading):hover {
-  border-color: transparent;
-}
+  /* 通用 noBorder（不依赖 plain） */
+  &.m-button--no-border {
+    border-color: transparent;
 
-/* 自定义颜色通用 noBorder */
-.m-button.m-button--custom-color.m-button--no-border {
-  border-color: transparent;
-}
-.m-button.m-button--custom-color.m-button--no-border:not(.m-button--disabled):not(.m-button--loading):hover {
-  border-color: transparent;
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      border-color: transparent;
+    }
+  }
 
-/* 文本按钮自定义颜色 */
-.m-button--custom-color.m-button--text {
-  color: var(--m-button-color);
-  border-color: transparent;
-  background-color: transparent;
-}
-.m-button--custom-color.m-button--text:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--m-button-color);
-  border-color: transparent;
-  background-color: transparent;
-  opacity: 0.7;
-}
+  &--text {
+    border-color: transparent;
+    background-color: transparent;
 
-/* === 文本朴素按钮 (text-plain prop) === */
-.m-button--text-plain {
-  border-color: transparent;
-  background-color: transparent;
-}
-.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  background-color: #ecedeb;
-  border-color: transparent;
-}
-.m-button--default.m-button--text-plain {
-  color: var(--mosaic-text-regular);
-}
-.m-button--primary.m-button--text-plain {
-  color: var(--mosaic-primary);
-}
-.m-button--success.m-button--text-plain {
-  color: var(--mosaic-success);
-}
-.m-button--warning.m-button--text-plain {
-  color: var(--mosaic-warning);
-}
-.m-button--danger.m-button--text-plain {
-  color: var(--mosaic-danger);
-}
-.m-button--info.m-button--text-plain {
-  color: var(--mosaic-info);
-}
-.m-button--info.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-info);
-}
-.m-button--default.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-text-regular);
-}
-.m-button--primary.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-primary);
-}
-.m-button--success.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-success);
-}
-.m-button--warning.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-warning);
-}
-.m-button--danger.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--mosaic-danger);
-}
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      border-color: transparent;
+      background-color: transparent;
+    }
+  }
 
-/* 自定义颜色文本朴素按钮 */
-.m-button--custom-color.m-button--text-plain {
-  color: var(--m-button-color);
-  border-color: transparent;
-  background-color: transparent;
-}
-.m-button--custom-color.m-button--text-plain:not(.m-button--disabled):not(.m-button--loading):hover {
-  color: var(--m-button-color);
-  background-color: #ecedeb;
-  border-color: transparent;
-}
+  &--default.m-button--text {
+    color: var(--mosaic-text-regular);
 
-/* === 虚线按钮 (dash prop) === */
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-primary);
+    }
+  }
 
-.m-button--dash {
-  border-style: dashed;
-}
+  &--primary.m-button--text {
+    color: var(--mosaic-primary);
 
-.m-button__loading {
-  display: inline-block;
-  width: 14px;
-  height: 14px;
-  border: 2px solid currentColor;
-  border-top-color: transparent;
-  border-radius: 50%;
-  margin-right: 6px;
-  animation: m-button-spin 0.6s linear infinite;
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: rgba(167, 139, 250, 0.7);
+    }
+  }
+
+  &--success.m-button--text {
+    color: var(--mosaic-success);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: rgba(103, 194, 58, 0.7);
+    }
+  }
+
+  &--warning.m-button--text {
+    color: var(--mosaic-warning);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: rgba(230, 162, 60, 0.7);
+    }
+  }
+
+  &--danger.m-button--text {
+    color: var(--mosaic-danger);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: rgba(245, 108, 108, 0.7);
+    }
+  }
+
+  &--info.m-button--text {
+    color: var(--mosaic-info);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: rgba(144, 147, 153, 0.7);
+    }
+  }
+
+  &--small {
+    height: 24px;
+    padding: 4px 12px;
+    font-size: var(--mosaic-font-size-sm);
+  }
+
+  &--large {
+    height: 40px;
+    padding: 12px 20px;
+    font-size: var(--mosaic-font-size-lg);
+  }
+
+  &--round {
+    border-radius: 20px;
+  }
+
+  &--circle {
+    border-radius: 50%;
+    padding: 0;
+    aspect-ratio: 1;
+  }
+
+  &--disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  &--loading {
+    cursor: default;
+  }
+
+  /* === 自定义颜色 (color prop) === */
+
+  /* 实心按钮（非 default 类型） */
+  &--custom-color:not(.m-button--default):not(.m-button--plain):not(.m-button--text) {
+    background-color: var(--m-button-color);
+    border-color: var(--m-button-color);
+    color: #fff;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      background-color: var(--m-button-color);
+      border-color: var(--m-button-color);
+      color: #fff;
+      filter: brightness(1.1);
+    }
+  }
+
+  /* default 类型自定义颜色 */
+  &--default.m-button--custom-color:not(.m-button--plain):not(.m-button--text) {
+    background-color: #fff;
+    border-color: var(--m-button-color);
+    color: var(--m-button-color);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      background-color: color-mix(in srgb, var(--m-button-color) 8%, white);
+      border-color: var(--m-button-color);
+      color: var(--m-button-color);
+    }
+  }
+
+  /* 朴素按钮自定义颜色 */
+  &--custom-color.m-button--plain {
+    background-color: color-mix(in srgb, var(--m-button-color) 10%, white);
+    border-color: color-mix(in srgb, var(--m-button-color) 50%, white);
+    color: var(--m-button-color);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      background-color: color-mix(in srgb, var(--m-button-color) 20%, white);
+      border-color: var(--m-button-color);
+      color: var(--m-button-color);
+    }
+  }
+
+  /* 无边框朴素自定义颜色 */
+  &--custom-color.m-button--plain.m-button--no-border {
+    border-color: transparent;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      border-color: transparent;
+    }
+  }
+
+  /* 自定义颜色通用 noBorder */
+  &.m-button--custom-color.m-button--no-border {
+    border-color: transparent;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      border-color: transparent;
+    }
+  }
+
+  /* 文本按钮自定义颜色 */
+  &--custom-color.m-button--text {
+    color: var(--m-button-color);
+    border-color: transparent;
+    background-color: transparent;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--m-button-color);
+      border-color: transparent;
+      background-color: transparent;
+      opacity: 0.7;
+    }
+  }
+
+  /* === 文本朴素按钮 (text-plain prop) === */
+  &--text-plain {
+    border-color: transparent;
+    background-color: transparent;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      background-color: #ecedeb;
+      border-color: transparent;
+    }
+  }
+
+  &--default.m-button--text-plain {
+    color: var(--mosaic-text-regular);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-text-regular);
+    }
+  }
+
+  &--primary.m-button--text-plain {
+    color: var(--mosaic-primary);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-primary);
+    }
+  }
+
+  &--success.m-button--text-plain {
+    color: var(--mosaic-success);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-success);
+    }
+  }
+
+  &--warning.m-button--text-plain {
+    color: var(--mosaic-warning);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-warning);
+    }
+  }
+
+  &--danger.m-button--text-plain {
+    color: var(--mosaic-danger);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-danger);
+    }
+  }
+
+  &--info.m-button--text-plain {
+    color: var(--mosaic-info);
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--mosaic-info);
+    }
+  }
+
+  /* 自定义颜色文本朴素按钮 */
+  &--custom-color.m-button--text-plain {
+    color: var(--m-button-color);
+    border-color: transparent;
+    background-color: transparent;
+
+    &:not(.m-button--disabled):not(.m-button--loading):hover {
+      color: var(--m-button-color);
+      background-color: #ecedeb;
+      border-color: transparent;
+    }
+  }
+
+  /* === 虚线按钮 (dash prop) === */
+  &--dash {
+    border-style: dashed;
+  }
+
+  &__loading {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    margin-right: 6px;
+    animation: m-button-spin 0.6s linear infinite;
+  }
 }
 
 @keyframes m-button-spin {

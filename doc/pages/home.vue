@@ -57,7 +57,7 @@ import '@pang/mosaic-ui/style.css'</pre>
 <script setup lang="ts">
 </script>
 
-<style>
+<style lang="scss">
 .doc-home__hero {
   text-align: center;
   padding: 48px 0 32px;
@@ -101,11 +101,11 @@ import '@pang/mosaic-ui/style.css'</pre>
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   padding: 32px 0;
-}
 
-@media (max-width: 768px) {
-  .doc-home__features {
-    grid-template-columns: 1fr;
+  @media (max-width: 768px) {
+    & {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -113,28 +113,28 @@ import '@pang/mosaic-ui/style.css'</pre>
   padding: 20px;
   border: 1px solid var(--mosaic-border-color);
   border-radius: 8px;
-}
 
-.doc-home__feature h3 {
-  font-size: 16px;
-  color: var(--mosaic-text-primary);
-  margin-bottom: 8px;
-}
+  h3 {
+    font-size: 16px;
+    color: var(--mosaic-text-primary);
+    margin-bottom: 8px;
+  }
 
-.doc-home__feature p {
-  font-size: 14px;
-  color: var(--mosaic-text-regular);
+  p {
+    font-size: 14px;
+    color: var(--mosaic-text-regular);
+  }
 }
 
 .doc-home__section {
   padding: 32px 0;
-}
 
-.doc-home__section h2 {
-  font-size: 22px;
-  color: var(--mosaic-text-primary);
-  margin-bottom: 12px;
-  margin-top: 24px;
+  h2 {
+    font-size: 22px;
+    color: var(--mosaic-text-primary);
+    margin-bottom: 12px;
+    margin-top: 24px;
+  }
 }
 
 .doc-home__code {
@@ -142,12 +142,12 @@ import '@pang/mosaic-ui/style.css'</pre>
   border-radius: 6px;
   padding: 16px;
   overflow-x: auto;
-}
 
-.doc-home__code pre {
-  font-family: 'Menlo', 'Consolas', monospace;
-  font-size: 14px;
-  color: var(--mosaic-text-primary);
-  line-height: 1.6;
+  pre {
+    font-family: 'Menlo', 'Consolas', monospace;
+    font-size: 14px;
+    color: var(--mosaic-text-primary);
+    line-height: 1.6;
+  }
 }
 </style>

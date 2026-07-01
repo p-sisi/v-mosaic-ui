@@ -1,0 +1,112 @@
+/* Fade */
+.m-fade-in {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity var(--mosaic-transition-duration) ease;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+/* Fade Linear */
+.m-fade-in-linear {
+  &-enter-active,
+  &-leave-active {
+    transition: opacity var(--mosaic-transition-duration-fast) linear;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
+
+/* Zoom In Center */
+.m-zoom-in-center {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) cubic-bezier(0.23, 1, 0.32, 1);
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Zoom In Top */
+.m-zoom-in-top {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center top;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+/* Zoom In Bottom */
+.m-zoom-in-bottom {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) cubic-bezier(0.23, 1, 0.32, 1);
+    transform-origin: center bottom;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+/* Slide Down */
+.m-slide-down {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) ease-out;
+    transform-origin: center top;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* Collapse */
+.m-collapse {
+  &-enter-active,
+  &-leave-active {
+    transition: height var(--mosaic-transition-duration) ease-in-out;
+    overflow: hidden;
+  }
+  &-enter-from,
+  &-leave-to {
+    height: 0 !important;
+  }
+}
+
+/* Dialog Fade */
+.m-dialog-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) ease;
+  }
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+/* Drawer */
+.m-drawer-fade {
+  &-enter-active,
+  &-leave-active {
+    transition: all var(--mosaic-transition-duration) ease;
+  }
+}

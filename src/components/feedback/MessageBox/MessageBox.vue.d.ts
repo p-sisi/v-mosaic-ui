@@ -1,0 +1,52 @@
+type MessageBoxType = 'success' | 'warning' | 'info' | 'error';
+type __VLS_Props = {
+    type?: MessageBoxType;
+    title?: string;
+    message?: string;
+    confirmButtonText?: string;
+    cancelButtonText?: string;
+    showConfirmButton?: boolean;
+    showCancelButton?: boolean;
+    closeOnClickModal?: boolean;
+    closeOnPressEscape?: boolean;
+    showClose?: boolean;
+    showInput?: boolean;
+    inputPlaceholder?: string;
+    inputPattern?: RegExp;
+    inputValidator?: (value: string) => boolean | string;
+    inputErrorMessage?: string;
+    confirmButtonClass?: string;
+    cancelButtonClass?: string;
+    callback?: (action: string) => void;
+    beforeClose?: (action: string, done: () => void) => void;
+    dangerouslyUseHTMLString?: boolean;
+    distinguishCancelAndClose?: boolean;
+};
+declare const _default: import("vue").DefineComponent<__VLS_Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
+    action: (action: string) => any;
+}, string, import("vue").PublicProps, Readonly<__VLS_Props> & Readonly<{
+    onAction?: ((action: string) => any) | undefined;
+}>, {
+    type: MessageBoxType;
+    title: string;
+    showInput: boolean;
+    message: string;
+    confirmButtonText: string;
+    cancelButtonText: string;
+    closeOnClickModal: boolean;
+    closeOnPressEscape: boolean;
+    beforeClose: (action: string, done: () => void) => void;
+    showClose: boolean;
+    dangerouslyUseHTMLString: boolean;
+    showConfirmButton: boolean;
+    showCancelButton: boolean;
+    inputPlaceholder: string;
+    inputPattern: RegExp;
+    inputValidator: (value: string) => boolean | string;
+    inputErrorMessage: string;
+    confirmButtonClass: string;
+    cancelButtonClass: string;
+    callback: (action: string) => void;
+    distinguishCancelAndClose: boolean;
+}, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
+export default _default;

@@ -1,0 +1,66 @@
+/* Loading mask overlay */
+.m-loading-mask {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--mosaic-z-index-popper);
+  transition: opacity var(--mosaic-transition-duration-fast);
+
+  &--fullscreen {
+    position: fixed;
+    inset: 0;
+    z-index: var(--mosaic-z-index-overlay);
+  }
+}
+
+/* Spinner */
+.m-loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__svg {
+    width: 42px;
+    height: 42px;
+    animation: m-loading-rotate 2s linear infinite;
+  }
+
+  &__circle {
+    stroke: var(--mosaic-primary);
+    stroke-linecap: round;
+    animation: m-loading-dash 1.5s ease-in-out infinite;
+  }
+}
+
+/* Text */
+.m-loading-text {
+  margin: 8px 0 0;
+  font-size: var(--mosaic-font-size-sm);
+  color: var(--mosaic-primary);
+}
+
+/* Keyframes */
+@keyframes m-loading-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes m-loading-dash {
+  0% {
+    stroke-dasharray: 1, 126;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 95, 126;
+    stroke-dashoffset: -31;
+  }
+  100% {
+    stroke-dasharray: 1, 126;
+    stroke-dashoffset: -125;
+  }
+}

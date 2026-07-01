@@ -1,1 +1,12 @@
 export { useClickOutside } from './useClickOutside';
+export { useZIndex } from './useZIndex';
+export { useLockScroll } from './useLockScroll';
+export { useEmitter } from './useEmitter';
+export { useFormItem } from './useFormItem';
+export { useSize } from './useSize';
+export { usePopper } from './usePopper';
+export { usePopup } from './usePopup';
+export { useFocusTrap } from './useFocusTrap';
+export { useResizeObserver } from './useResizeObserver';
+export { useIntersection } from './useIntersection';
+export { useTeleportTarget } from './useTeleportTarget';

@@ -12,7 +12,7 @@
 <script setup lang="ts">
 </script>
 
-<style>
+<style lang="scss">
 .doc-placeholder {
   display: flex;
   align-items: center;

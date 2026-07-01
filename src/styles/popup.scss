@@ -1,0 +1,30 @@
+.m-popper {
+  position: absolute;
+  border-radius: var(--mosaic-border-radius);
+  background-color: var(--mosaic-bg-color);
+  box-shadow: var(--mosaic-box-shadow-base);
+  padding: 8px 12px;
+  font-size: var(--mosaic-font-size);
+  line-height: 1.5;
+  color: var(--mosaic-text-regular);
+  z-index: var(--mosaic-z-index-popper);
+
+  &__arrow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: var(--mosaic-bg-color);
+    transform: rotate(45deg);
+    z-index: -1;
+  }
+
+  &--dark {
+    background-color: var(--mosaic-text-primary);
+    color: #fff;
+    border: none;
+
+    .m-popper__arrow {
+      background: var(--mosaic-text-primary);
+    }
+  }
+}

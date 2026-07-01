@@ -1,0 +1,11 @@
+@use './variables';
+@use './transitions';
+@use './overlay';
+@use './popup';
+@use './common';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}

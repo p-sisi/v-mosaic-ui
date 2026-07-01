@@ -1,0 +1,53 @@
+:root {
+  --mosaic-primary: #a78bfa;
+  --mosaic-primary-light: #c4b5fd;
+  --mosaic-primary-dark: #7c3aed;
+  --mosaic-success: #67c23a;
+  --mosaic-warning: #ffa622;
+  --mosaic-danger: #f56c6c;
+  --mosaic-info: #909399;
+
+  --mosaic-text-primary: #303133;
+  --mosaic-text-regular: #606266;
+  --mosaic-text-secondary: #909399;
+  --mosaic-text-placeholder: #c0c4cc;
+
+  --mosaic-border-color: #dcdfe6;
+  --mosaic-border-color-light: #e4e7ed;
+  --mosaic-border-color-lighter: #ebeef5;
+  --mosaic-border-radius: 4px;
+  --mosaic-border-radius-lg: 8px;
+
+  --mosaic-font-size: 14px;
+  --mosaic-font-size-ssm: 10px;
+  --mosaic-font-size-sm: 12px;
+  --mosaic-font-size-lg: 16px;
+  --mosaic-font-size-xl: 18px;
+
+  --mosaic-z-index-normal: 1;
+  --mosaic-z-index-top: 1000;
+  --mosaic-z-index-popper: 2000;
+  --mosaic-z-index-overlay: 3000;
+
+  --mosaic-overlay-color: rgba(0, 0, 0, 0.5);
+
+  --mosaic-transition-duration: 0.3s;
+  --mosaic-transition-duration-fast: 0.2s;
+
+  --mosaic-box-shadow-base: 0 2px 8px rgba(0, 0, 0, 0.12);
+  --mosaic-box-shadow-light: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  --mosaic-fill-color-light: #f5f7fa;
+  --mosaic-fill-color-lighter: #fafafa;
+  --mosaic-fill-color-blank: #fff;
+
+  --mosaic-disabled-bg-color: #f5f7fa;
+  --mosaic-disabled-text-color: #c0c4cc;
+  --mosaic-disabled-border-color: #e4e7ed;
+
+  --mosaic-bg-color: #fff;
+
+  --mosaic-size-small: 24px;
+  --mosaic-size-default: 32px;
+  --mosaic-size-large: 40px;
+}

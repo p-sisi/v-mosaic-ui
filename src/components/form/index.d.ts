@@ -1,1 +1,11 @@
 export { MInput } from './Input';
+export { MForm, MFormItem } from './Form';
+export { MInputNumber } from './InputNumber';
+export { MCheckboxGroup, MCheckbox, MCheckboxButton } from './Checkbox';
+export { MRadioGroup, MRadio, MRadioButton } from './Radio';
+export { MSwitch } from './Switch';
+export { MSlider } from './Slider';
+export { MRate } from './Rate';
+export { MOption, MOptionGroup } from './Option';
+export { MAutocomplete } from './Autocomplete';
+export { MUpload } from './Upload';

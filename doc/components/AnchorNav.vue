@@ -83,7 +83,7 @@ watch(route, () => {
 })
 </script>
 
-<style>
+<style lang="scss">
 .anchor-nav {
   position: fixed;
   top: 72px;
@@ -91,46 +91,46 @@ watch(route, () => {
   width: 160px;
   max-height: calc(100vh - 88px);
   overflow-y: auto;
-}
 
-.anchor-nav__title {
-  font-size: 12px;
-  color: var(--mosaic-text-secondary);
-  font-weight: 600;
-  margin-bottom: 8px;
-}
+  &__title {
+    font-size: 12px;
+    color: var(--mosaic-text-secondary);
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
 
-.anchor-nav__list {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
+  &__list {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
 
-.anchor-nav__link {
-  display: block;
-  padding: 4px 8px;
-  font-size: 13px;
-  color: var(--mosaic-text-secondary);
-  text-decoration: none;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all 0.2s;
-  border-left: 2px solid transparent;
-}
+  &__link {
+    display: block;
+    padding: 4px 8px;
+    font-size: 13px;
+    color: var(--mosaic-text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.2s;
+    border-left: 2px solid transparent;
 
-.anchor-nav__link:hover {
-  color: var(--mosaic-primary);
-}
+    &:hover {
+      color: var(--mosaic-primary);
+    }
 
-.anchor-nav__link--active {
-  color: var(--mosaic-primary);
-  border-left-color: var(--mosaic-primary);
-  font-weight: 500;
-}
+    &--active {
+      color: var(--mosaic-primary);
+      border-left-color: var(--mosaic-primary);
+      font-weight: 500;
+    }
+  }
 
-@media (max-width: 1200px) {
-  .anchor-nav {
-    display: none;
+  @media (max-width: 1200px) {
+    & {
+      display: none;
+    }
   }
 }
 </style>

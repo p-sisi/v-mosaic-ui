@@ -1,0 +1,19 @@
+.m-overlay {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: var(--mosaic-overlay-color);
+  z-index: var(--mosaic-z-index-overlay);
+
+  &-enter-active,
+  &-leave-active {
+    transition: opacity var(--mosaic-transition-duration) ease;
+  }
+
+  &-enter-from,
+  &-leave-to {
+    opacity: 0;
+  }
+}
